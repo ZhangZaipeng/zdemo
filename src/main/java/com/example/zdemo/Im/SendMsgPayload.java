@@ -26,12 +26,12 @@ public class SendMsgPayload implements SendModel{
   private Integer msgLifeTime;
   private Integer msgRandom;
   private Integer msgTimeStamp;
-  private Set<MsgElement> msgBodys;
+  private MsgBodys msgBodys;
   private OfflinePushInfo offlinePushInfo;
 
   public SendMsgPayload(Integer syncOtherMachine, String fromAccount, String toAccount,
       Integer msgLifeTime, Integer msgRandom, Integer msgTimeStamp,
-      Set<MsgElement> msgBodys, OfflinePushInfo offlinePushInfo) {
+      MsgBodys msgBodys, OfflinePushInfo offlinePushInfo) {
     this.syncOtherMachine = syncOtherMachine;
     this.fromAccount = fromAccount;
     this.toAccount = toAccount;
@@ -64,7 +64,7 @@ public class SendMsgPayload implements SendModel{
       json.addProperty(MSG_TIME_STAMP,msgTimeStamp);
     }
     if (null != msgBodys) {
-      json.add(MSG_BODY, gson.toJsonTree(msgBodys));
+      json.add(MSG_BODY, msgBodys.toJSON());
     }
     if (null != offlinePushInfo) {
       json.add(OFFLINE_PUSH_INFO, offlinePushInfo.toJSON());
@@ -84,7 +84,7 @@ public class SendMsgPayload implements SendModel{
     private Integer msgLifeTime;
     private Integer msgRandom;
     private Integer msgTimeStamp;
-    private Set<MsgElement> msgBodys;
+    private MsgBodys msgBodys;
     private OfflinePushInfo offlinePushInfo;
 
     public Builder setSyncOtherMachine(Integer syncOtherMachine) {
@@ -117,7 +117,7 @@ public class SendMsgPayload implements SendModel{
       return this;
     }
 
-    public Builder setMsgBodys(Set<MsgElement> msgBodys) {
+    public Builder setMsgBodys(MsgBodys msgBodys) {
       this.msgBodys = msgBodys;
       return this;
     }

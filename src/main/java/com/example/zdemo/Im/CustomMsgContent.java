@@ -4,8 +4,7 @@ import com.example.zdemo.Http.StringUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class CustomMsgContent implements SendModel,MsgContent {
-  public static final String MSG_ELEMENT_TYPE = "TIMCustomElem";
+public class CustomMsgContent implements SendModel, MsgContent {
 
   /** 消息内容 */
   private static final String DATA = "Data";
@@ -46,11 +45,6 @@ public class CustomMsgContent implements SendModel,MsgContent {
     }
 
     return json;
-  }
-
-  @Override
-  public String getMsgType() {
-    return MSG_ELEMENT_TYPE;
   }
 
   public static class Builder {

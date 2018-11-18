@@ -1,5 +1,6 @@
 package com.example.zdemo.Im;
 
+import com.example.zdemo.Im.MsgContent.M_TYPE;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -24,7 +25,7 @@ public class MsgElement implements SendModel{
 
     if (null != msgContent) {
       if(msgContent instanceof CustomMsgContent) {
-        json.addProperty(MSG_TYPE, CustomMsgContent.MSG_ELEMENT_TYPE);
+        json.addProperty(MSG_TYPE, M_TYPE.CustomType.getMsyType());
         json.add(MSG_CONTENT, ((CustomMsgContent) msgContent).toJSON());
       }
     }

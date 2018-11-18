@@ -3,6 +3,7 @@
  */
 package com.example.zdemo.Im;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.util.HashSet;
@@ -14,7 +15,7 @@ import java.util.Set;
  * @ClassName: MsgBody
  * @author zhangzp
  */
-public class MsgBodys {
+public class MsgBodys implements SendModel{
 
 	private Set<MsgElement> msgElements;
 
@@ -22,8 +23,24 @@ public class MsgBodys {
 		this.msgElements = msgElements;
 	}
 
+	public Set<MsgElement> getMsgElements() {
+		return msgElements;
+	}
+
 	public static Builder newBuilder() {
 		return new Builder();
+	}
+
+	@Override
+	public JsonElement toJSON() {
+		JsonArray json = new JsonArray();
+
+		if (null != msgElements) {
+			for (MsgElement e : msgElements) {
+				json.add(e.toJSON());
+			}
+		}
+		return json;
 	}
 
 	public static class Builder {
@@ -36,8 +53,8 @@ public class MsgBodys {
 			msgElements.add(e);
 			return this;
 		}
-		public Set<MsgElement> build() {
-			return msgElements;
+		public MsgBodys build() {
+			return new MsgBodys(msgElements);
 		}
 	}
 }
