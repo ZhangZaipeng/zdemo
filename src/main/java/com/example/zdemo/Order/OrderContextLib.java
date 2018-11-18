@@ -1,18 +1,14 @@
 package com.example.zdemo.Order;
 
-import com.example.zdemo.Delayed.Message;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrderContextLib implements ApplicationListener<ContextRefreshedEvent> {
+public class OrderContextLib implements ApplicationListener<ContextRefreshedEvent>  {
 
   // 订单容器
   private DelayQueue<OrderDelay> orderDelays;
@@ -33,7 +29,7 @@ public class OrderContextLib implements ApplicationListener<ContextRefreshedEven
 
   // 查询 数据库 初始化 orderDelays
   private void getDbDateToDelays() {
-    this.orderDelays = new DelayQueue<>();
+    this.orderDelays = new DelayQueue<OrderDelay>();
 
     OrderDelay o1 = new OrderDelay(1L, 1542360690000L);
     OrderDelay o2 = new OrderDelay(1L, 1542360695000L);
