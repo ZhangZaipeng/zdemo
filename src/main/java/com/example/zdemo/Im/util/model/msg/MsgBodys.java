@@ -1,11 +1,11 @@
 /**
  * 
  */
-package com.example.zdemo.Im;
+package com.example.zdemo.Im.util.model.msg;
 
+import com.example.zdemo.Im.util.model.SendModel;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +15,7 @@ import java.util.Set;
  * @ClassName: MsgBody
  * @author zhangzp
  */
-public class MsgBodys implements SendModel{
+public class MsgBodys implements SendModel {
 
 	private Set<MsgElement> msgElements;
 

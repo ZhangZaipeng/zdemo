@@ -23,7 +23,7 @@ import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.bouncycastle.util.Arrays;
 
-public class tlsSigature {
+public class TlsSigature {
 	public static class GenTLSSignatureResult
 	{
 		public String errMessage;

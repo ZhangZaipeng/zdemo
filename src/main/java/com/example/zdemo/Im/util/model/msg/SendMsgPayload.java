@@ -1,15 +1,14 @@
-package com.example.zdemo.Im;
+package com.example.zdemo.Im.util.model.msg;
 
-import com.example.zdemo.Http.StringUtils;
+import com.example.zdemo.Im.util.common.StringUtils;
+import com.example.zdemo.Im.util.model.SendModel;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import java.util.List;
-import java.util.Set;
 
 /**
  * 发送消费对象
  */
-public class SendMsgPayload implements SendModel{
+public class SendMsgPayload implements SendModel {
 
   private static final String SYNC_OTHER_MACHINE = "SyncOtherMachine";
   private static final String FROM_ACCOUNT = "From_Account";

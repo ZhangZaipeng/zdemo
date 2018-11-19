@@ -1,7 +1,9 @@
-package com.example.zdemo.Http;
+package com.example.zdemo.Im.util.common;
 
+import com.example.zdemo.Im.util.common.StringUtils;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
@@ -14,12 +16,11 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
 import org.apache.http.client.config.AuthSchemes;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.EntityBuilder;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -30,7 +31,7 @@ import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.TrustStrategy;
+import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
@@ -42,6 +43,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class HttpStreamUtil {
+
+    private static final Logger logger = LoggerFactory.getLogger(HttpStreamUtil.class);
 
     // 连接超时时间
     private static final int CONNECTION_TIMEOUT = 30000;// 30秒
@@ -144,7 +147,7 @@ public class HttpStreamUtil {
      * @return
      * @throws IOException
      */
-    public static String post(String url, int connectTimeout, int readTimeout,
+    private static String post(String url, int connectTimeout, int readTimeout,
         Map<String, String> headers, Map<String, String> param, String encoding)
         throws IOException {
 
@@ -171,6 +174,7 @@ public class HttpStreamUtil {
             for (String key : param.keySet()) {
                 formparams.add(new BasicNameValuePair(key, param.get(key)));
             }
+
             UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(
                 formparams, encoding);
             requestPost.setEntity(formEntity);
@@ -180,7 +184,53 @@ public class HttpStreamUtil {
         CloseableHttpResponse response = wrapClient(url).execute(requestPost);
 
         // get response
-        return getHttpEntityStr(response,encoding);
+        return getHttpEntityStr(response, encoding);
+    }
+
+    public static String invokePost(String url, String content) throws IOException{
+        return invokePost(url,CONNECTION_TIMEOUT,READ_DATA_TIMEOUT,new HashMap<>(),content,D_ENCODING);
+    }
+
+    private static String invokePost(String url, int connectTimeout, int readTimeout,
+        Map<String, String> headers, String content, String encoding)
+        throws IOException {
+        HttpPost requestPost = new HttpPost(url);
+
+        // 配置
+        RequestConfig requestConfig = RequestConfig.custom()
+            .setSocketTimeout(readTimeout)
+            .setConnectTimeout(connectTimeout)
+            .setConnectionRequestTimeout(connectTimeout)
+            .setExpectContinueEnabled(false).build();
+        requestPost.setConfig(requestConfig);
+
+        // 头信息
+        if (null != headers && !headers.isEmpty()) {
+            for (Map.Entry<String, String> e : headers.entrySet()) {
+                requestPost.addHeader(new BasicHeader(e.getKey(), e.getValue()));
+            }
+        }
+
+        // 请求数据
+        if (!StringUtils.isNullOrEmpty(content)) {
+            // validate json
+            try {
+                new JsonParser().parse(content);
+            } catch (JsonParseException e) {
+                logger.error("bad content: " + content + "not json");
+            }
+            HttpEntity httpEntity = EntityBuilder.create()
+                .setText(content)
+                .setContentType(ContentType.APPLICATION_JSON)
+                .setContentEncoding(encoding).build();
+
+            requestPost.setEntity(httpEntity);
+        }
+
+        // send request
+        CloseableHttpResponse response = wrapClient(url).execute(requestPost);
+
+        return getHttpEntityStr(response, encoding);
     }
 
     /**
@@ -269,5 +319,7 @@ public class HttpStreamUtil {
             throw new RuntimeException(ex);
         }
     }
+
+
 
 }

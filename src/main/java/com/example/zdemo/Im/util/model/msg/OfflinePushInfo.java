@@ -1,10 +1,10 @@
 /**
  * 
  */
-package com.example.zdemo.Im;
+package com.example.zdemo.Im.util.model.msg;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.example.zdemo.Http.StringUtils;
+import com.example.zdemo.Im.util.common.StringUtils;
+import com.example.zdemo.Im.util.model.SendModel;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -14,7 +14,7 @@ import com.google.gson.JsonObject;
  * @ClassName: OfflinePushInfo
  * @author huangzg 2016年12月17日 上午9:51:38
  */
-public class OfflinePushInfo implements SendModel{
+public class OfflinePushInfo implements SendModel {
 
 	private static final String PUSH_FLAG = "PushFlag";
 	private static final String TITLE = "Title";

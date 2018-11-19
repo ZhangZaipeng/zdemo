@@ -1,6 +1,7 @@
-package com.example.zdemo.Im;
+package com.example.zdemo.Im.util.model.msg;
 
-import com.example.zdemo.Http.StringUtils;
+import com.example.zdemo.Im.util.common.StringUtils;
+import com.example.zdemo.Im.util.model.SendModel;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 

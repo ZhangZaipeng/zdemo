@@ -21,8 +21,6 @@ public class C2CImcallBack {
 	private List<C2CMessage> msgBody;
 
 	public C2CImcallBack() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public C2CImcallBack(String callbackCommand, String fromAccount,

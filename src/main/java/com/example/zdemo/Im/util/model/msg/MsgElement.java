@@ -1,10 +1,11 @@
-package com.example.zdemo.Im;
+package com.example.zdemo.Im.util.model.msg;
 
-import com.example.zdemo.Im.MsgContent.M_TYPE;
+import com.example.zdemo.Im.util.model.SendModel;
+import com.example.zdemo.Im.util.model.msg.MsgContent.M_TYPE;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class MsgElement implements SendModel{
+public class MsgElement implements SendModel {
   /** 消息类型 */
   private static final String MSG_TYPE = "MsgType";
   private static final String MSG_CONTENT = "MsgContent";

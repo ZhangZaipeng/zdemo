@@ -1,14 +1,14 @@
 /**
  * 
  */
-package com.example.zdemo.Im.util.model.vo.accounts;
+package com.example.zdemo.Im.util.model.vo;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
 /**
  * 
  * @ClassName: MsgAccounts
- * @author huangzg 2017年2月7日 下午9:29:23
+ * @author zhangzp
  */
 public class MsgAccounts {
 

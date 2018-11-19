@@ -1,4 +1,4 @@
-package com.example.zdemo.Im;
+package com.example.zdemo.Im.util.model.msg;
 
 public interface MsgContent {
   enum M_TYPE {

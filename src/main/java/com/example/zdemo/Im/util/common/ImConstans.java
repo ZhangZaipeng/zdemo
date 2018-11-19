@@ -1,4 +1,4 @@
-package com.example.zdemo.Im.util;
+package com.example.zdemo.Im.util.common;
 
 import org.springframework.beans.factory.annotation.Value;
 

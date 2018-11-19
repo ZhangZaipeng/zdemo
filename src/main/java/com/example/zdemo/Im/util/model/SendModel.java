@@ -1,4 +1,4 @@
-package com.example.zdemo.Im;
+package com.example.zdemo.Im.util.model;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
