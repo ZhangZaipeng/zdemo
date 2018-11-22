@@ -7,3 +7,10 @@ server:
     uri-encoding: UTF-8
     max-connections: 1000 # 最大连接数量 1000
     min-spare-threads: 20 # 初始化线程是20
+
+spring:
+  freemarker:
+    suffix: .ftl
+  # 静态资源引用
+  mvc:
+    static-path-pattern: /static/**
