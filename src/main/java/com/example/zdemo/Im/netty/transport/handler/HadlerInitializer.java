@@ -17,5 +17,8 @@ public class HadlerInitializer extends ChannelInitializer<Channel> {
     pipeline.addLast(new ChunkedWriteHandler());
     pipeline.addLast(new HttpObjectAggregator(64 * 1024));
 
+
+    pipeline.addLast("http-handler", httpRequestHandler);
+    pipeline.addLast("websocket-handler", webSocketServerHandler);
   }
 }

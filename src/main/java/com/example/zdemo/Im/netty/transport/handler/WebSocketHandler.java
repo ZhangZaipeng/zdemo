@@ -1,6 +1,6 @@
 package com.example.zdemo.Im.netty.transport.handler;
 
-import com.example.zdemo.Im.netty.transport.queue.TaskQueue;
+import com.example.zdemo.Im.netty.transport.data.ReceiveQueue;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
@@ -12,15 +12,13 @@ import java.util.concurrent.BlockingQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
+public class WebSocketHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
 
   private static final Logger logger = LoggerFactory.getLogger(HttpReqHandler.class);
 
-  private final BlockingQueue<TextWebSocketFrame> taskQueue;
 
-  public WebSocketServerHandler(){
+  public WebSocketHandler(){
     super();
-    taskQueue = TaskQueue.getQueue();
   }
 
   @Override
@@ -57,7 +55,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocke
     }
 
     //  认证操作
-    logger.info("TaskQueue添加任务: taskQueue=" + taskQueue.size());
+    // logger.info("TaskQueue添加任务: taskQueue=" + taskQueue.size());
 
     return;
   }
@@ -68,7 +66,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocke
    */
   @Override
   public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-    chatService.remove(ctx);
+    // chatService.remove(ctx);
   }
 
   /**

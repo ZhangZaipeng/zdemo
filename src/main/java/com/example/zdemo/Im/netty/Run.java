@@ -1,6 +1,6 @@
 package com.example.zdemo.Im.netty;
 
-import com.example.zdemo.Im.netty.service.Service;
+import com.example.zdemo.Im.netty.service.ImAppContext;
 import com.example.zdemo.Im.netty.transport.netty.NettyConfig;
 import com.example.zdemo.Im.netty.transport.netty.NettyConfigImpl;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -17,7 +17,7 @@ public class Run {
     public static void start() throws InterruptedException {
 
         // 启动服务
-        new Service().initAndStart();
+        new ImAppContext().initAndStart();
 
         NettyConfig config = new NettyConfigImpl();
         config.setParentGroup(1);
