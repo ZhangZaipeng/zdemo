@@ -1,13 +1,12 @@
 package com.example.zdemo.Im.netty.transport.netty;
 
 import com.example.zdemo.Im.netty.transport.exception.NullParamsException;
-import com.example.zdemo.Im.netty.transport.handler.AcceptorHandler;
-import com.example.zdemo.Im.netty.transport.handler.ProtocolDecoder;
-import com.example.zdemo.Im.netty.transport.handler.ProtocolEncoder;
+import com.example.zdemo.Im.netty.transport.handler.HadlerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import org.apache.log4j.Logger;
 
@@ -57,18 +56,18 @@ public class NettyConfigImpl implements NettyConfig {
     public void setHandler() {
         validate();
         bootstrap.group(parentGroup, childGroup);
-        bootstrap.channel(channelClass);
-        bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
-            @Override
-            protected void initChannel(SocketChannel ch) throws Exception {
-                ChannelPipeline pipeline = ch.pipeline();
-                pipeline.addLast("ProtocolDecoder", new ProtocolDecoder());
-                pipeline.addLast("ProtocolEncoder", new ProtocolEncoder());
-                pipeline.addLast("IdleStateHandler", new IdleStateHandler(6, 0, 0));
-                pipeline.addLast("AcceptorHandler", new AcceptorHandler());
-            }
-        }).option(ChannelOption.SO_BACKLOG, 128)
-                .childOption(ChannelOption.SO_KEEPALIVE, true);
+        //配置客户端的channel类型
+        bootstrap.channel(NioServerSocketChannel.class);
+        //配置TCP参数，握手字符串长度设置
+        bootstrap.option(ChannelOption.SO_BACKLOG, 1024);
+        //TCP_NODELAY算法，尽可能发送大块数据，减少充斥的小块数据
+        bootstrap.option(ChannelOption.TCP_NODELAY, true);
+        //开启心跳包活机制，就是客户端、服务端建立连接处于ESTABLISHED状态，超过2小时没有交流，机制会被启动
+        bootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);
+        //配置固定长度接收缓存区分配器
+        bootstrap.childOption(ChannelOption.RCVBUF_ALLOCATOR, new FixedRecvByteBufAllocator(592048));
+        //绑定I/O事件的处理类,WebSocketChildChannelHandler中定义
+        bootstrap.childHandler(new HadlerInitializer());
     }
 
     @Override

@@ -46,7 +46,7 @@ public class MsgBodys implements SendModel {
 	public static class Builder {
 		private Set<MsgElement> msgElements;
 
-		public Builder addElement(MsgElement e){
+		public Builder setElement(MsgElement e){
 			if (msgElements == null) {
 				msgElements = new HashSet<>();
 			}

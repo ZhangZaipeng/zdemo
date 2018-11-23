@@ -138,4 +138,26 @@ public class SendMsgPayload implements SendModel {
   public String toString(){
     return gson.toJson(toJSON());
   }
+
+  public static void main(String[] args) {
+    SendMsgPayload s = SendMsgPayload.newBuilder()
+        .setFromAccount("from")
+        .setToAccount("to")
+        .setMsgRandom(123123)
+        .setMsgTimeStamp(179876666)
+        .setMsgBodys(
+            MsgBodys.newBuilder().setElement(
+                MsgElement.newBuilder()
+                    .setMsgContent(CustomMsgContent.newBuilder()
+                        .setData("data")
+                        .setDesc("desc")
+                        .setExt("ext")
+                        .setSound("sound")
+                        .build()).build()
+            ).build()
+        ).build()
+    ;
+
+    System.out.println(s.toString());
+  }
 }

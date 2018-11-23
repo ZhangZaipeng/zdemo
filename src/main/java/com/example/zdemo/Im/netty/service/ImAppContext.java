@@ -56,7 +56,7 @@ public class ImAppContext {
                         //BinaryWebSocketFrame binaryWebSocketFrame = taskQueue.take();
                         //logger.info("TaskQueue取出任务: taskQueue=" + taskQueue.size());
                         // startTask(binaryWebSocketFrame);
-                    } catch (InterruptedException e) {
+                    } catch (Exception e) {
                         logger.warn("receiveQueue take", e);
                     }
                 }

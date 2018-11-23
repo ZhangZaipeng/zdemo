@@ -24,33 +24,16 @@ public class HttpReqHandler extends SimpleChannelInboundHandler<Object> {
   @Override
   protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
     if (msg instanceof FullHttpRequest) {
-      handleHttpRequest(ctx, (FullHttpRequest) msg);
+
+      FullHttpRequest request = (FullHttpRequest) msg;
+      if (!request.decoderResult().isSuccess() || !"websocket".equals(request.headers().get("Upgrade"))) {
+        sendHttpResponse(ctx, request,
+            new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST));
+        return;
+      }
+
     } else if (msg instanceof WebSocketFrame) {
       ctx.fireChannelRead(((WebSocketFrame) msg).retain());
-    }
-    /*else if (msg instanceof WebSocketFrame) {
-      handleWebSocket(ctx, (WebSocketFrame) msg);
-    }*/
-  }
-
-  private void handleHttpRequest(ChannelHandlerContext ctx, FullHttpRequest request) {
-    if (!request.decoderResult().isSuccess() || !"websocket".equals(request.headers().get("Upgrade"))) {
-      sendHttpResponse(ctx, request,
-          new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST));
-      return;
-    }
-
-    WebSocketServerHandshakerFactory handshakerFactory = new WebSocketServerHandshakerFactory(
-        "ws://localhost:8099/websocket", null, true);
-    /*WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(
-        "ws:/" + ctx.channel() + "/websocket", null, false);*/
-    handshaker = handshakerFactory.newHandshaker(request);
-    if (handshaker == null) {
-      WebSocketServerHandshakerFactory.sendUnsupportedVersionResponse(ctx.channel());
-    } else {
-      // 动态加入websocket的编解码处理
-      handshaker.handshake(ctx.channel(), request);
-      // 记录 channel 用来响应CloseWebSocketFrame的请求；
     }
   }
 

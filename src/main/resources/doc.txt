@@ -1,6 +1,23 @@
 1.消息类型
   1.提醒消息
-
+    order提醒消息 OrderElem
   2.聊天消息
+    文本消息 TxtElem
+
 
 2.消息格式
+{
+	"From_Account": "from",
+	"To_Account": "to",
+	"MsgRandom": 123123,
+	"MsgTimeStamp": 179876666,
+	"MsgBody": [{
+		"MsgType": "TxtElem",
+		"MsgContent": {
+			"Data": "data",
+			"Desc": "desc",
+			"Ext": "ext",
+			"Sound": "sound"
+		}
+	}]
+}
