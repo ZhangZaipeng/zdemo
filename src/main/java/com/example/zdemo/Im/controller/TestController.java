@@ -4,12 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-@RequestMapping("/chat")
 @Controller
+@RequestMapping("/chat")
 public class TestController {
 
   @RequestMapping("/init.htm")
   public ModelAndView init(){
-    return new ModelAndView("websocketclient");
+    return new ModelAndView("wsclient");
   }
 }

@@ -10,19 +10,27 @@ import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 /**
  * 心跳检测Handler
  * <p>
- *
  */
-public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
-    private static final Logger logger = Logger.getLogger(HeartbeatHandler.class);
 
-    public static AtomicBoolean isLogout = new AtomicBoolean(false);
+@Component
+@Scope("singleton")
+public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
+    /*private final Logger logger = Logger.getLogger(HeartbeatHandler.class);
+
+    public AtomicBoolean isLogout = new AtomicBoolean(false);
+
+    @Autowired
+    private ConnPool connPool;
 
     private Channel channel;
-    private String username;
+    private Long userId;
 
     // 丢失的心跳数
     private int counter = 0;
@@ -34,12 +42,13 @@ public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof IdleStateEvent) {
-            if (username == null) {
-                username = ConnPool.query(channel);
+
+            if (userId == null) {
+                userId = ConnPool.query(channel);
             }
             // 心跳丢失
             counter++;
-            logger.info(username + " 丢失" + counter + "个心跳包");
+            logger.info(userId + " 丢失" + counter + "个心跳包");
             if (counter > 4) {
                 // 心跳丢失数达到5个，主动断开连接
                 ctx.channel().close();
@@ -74,5 +83,5 @@ public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
                 ctx.fireChannelRead(msg);
             }
         }
-    }
+    }*/
 }

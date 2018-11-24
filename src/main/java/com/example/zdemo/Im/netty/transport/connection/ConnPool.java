@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import org.apache.log4j.Logger;
 
 /**
@@ -17,24 +18,24 @@ public class ConnPool {
     private ConnPool() {
     }
 
-    // 用于存放在线用户的username和channel
-    private static Map<String, Channel> connsMap =
-            new HashMap<>();
+    // 用于存放在线用户的userId和channel
+    private static Map<Long, Channel> connsMap =
+            new ConcurrentHashMap<>();
 
     /**
      * 添加连接
      *
-     * @param username
+     * @param userId
      * @param channel
      * @return
      */
-    public synchronized static boolean add(String username, Channel channel) {
-        Channel result = connsMap.put(username, channel);
+    public synchronized static boolean add(Long userId, Channel channel) {
+        Channel result = connsMap.put(userId, channel);
         if (result == null) {
-            logger.info("Conn池 添加成功(username=" + username + " channel=" + channel + ")");
+            logger.info("Conn池 添加成功(userId=" + userId + " channel=" + channel + ")");
             return true;
         } else {
-            logger.warn("Conn池 添加失败(username=" + username + " channel=" + channel + ")");
+            logger.warn("Conn池 添加失败(userId=" + userId + " channel=" + channel + ")");
             return false;
         }
     }
@@ -42,16 +43,16 @@ public class ConnPool {
     /**
      * 删除连接
      *
-     * @param username
+     * @param userId
      * @return
      */
-    public synchronized static boolean remove(String username) {
-        Channel result = connsMap.remove(username);
+    public synchronized static boolean remove(Long userId) {
+        Channel result = connsMap.remove(userId);
         if (result != null) {
-            logger.info("Conn池 移除成功(username=" + username + ")");
+            logger.info("Conn池 移除成功(userId=" + userId + ")");
             return true;
         } else {
-            logger.warn("Conn池 移除失败(username=" + username + ")");
+            logger.warn("Conn池 移除失败(userId=" + userId + ")");
             return false;
         }
     }
@@ -59,11 +60,11 @@ public class ConnPool {
     /**
      * 查找连接
      *
-     * @param username
+     * @param userId
      * @return
      */
-    public synchronized static Channel query(String username) {
-        return connsMap.get(username);
+    public synchronized static Channel query(Long userId) {
+        return connsMap.get(userId);
     }
 
     /**
@@ -72,11 +73,11 @@ public class ConnPool {
      * @param channel
      * @return
      */
-    public synchronized static String query(Channel channel) {
-        Set<Map.Entry<String, Channel>> entries = connsMap.entrySet();
-        Iterator<Map.Entry<String, Channel>> ite = entries.iterator();
+    public synchronized static Long query(Channel channel) {
+        Set<Map.Entry<Long, Channel>> entries = connsMap.entrySet();
+        Iterator<Map.Entry<Long, Channel>> ite = entries.iterator();
         while (ite.hasNext()) {
-            Map.Entry<String, Channel> entry = ite.next();
+            Map.Entry<Long, Channel> entry = ite.next();
             if (channel.equals(entry.getValue())) {
                 return entry.getKey();
             }

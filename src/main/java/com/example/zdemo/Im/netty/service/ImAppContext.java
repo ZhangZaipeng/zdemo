@@ -1,6 +1,7 @@
 package com.example.zdemo.Im.netty.service;
 
 import com.example.zdemo.Im.netty.transport.data.ReceiveQueue;
+import com.example.zdemo.Im.netty.transport.netty.NettyServer;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import java.util.concurrent.BlockingQueue;
@@ -24,6 +25,11 @@ public class ImAppContext {
     @Autowired
     private ReceiveQueue taskQueue;
 
+    @Autowired
+    private NettyServer config;
+
+    private Thread nettyThread;
+
     public static AtomicBoolean shutdown = new AtomicBoolean(false);
 
     // 存放 消息任务队列
@@ -36,8 +42,15 @@ public class ImAppContext {
 
     @PostConstruct
     public void initAndStart() {
-        init();
-        start();
+        // init();
+        // start();
+        startNetty();
+    }
+
+    private void startNetty() {
+        nettyThread = new Thread(config);
+        logger.info("开启独立线程，启动Netty WebSocket服务器...");
+        nettyThread.start();
     }
 
     private void init() {

@@ -16,6 +16,7 @@ public class WebSocketProtocolHandler  extends MessageToMessageDecoder<WebSocket
       ctx.channel().writeAndFlush(new PongWebSocketFrame(frame.content()));
       return;
     }
+
     if (frame instanceof PongWebSocketFrame) {
       // Pong frames need to get ignored
       return;
@@ -26,6 +27,7 @@ public class WebSocketProtocolHandler  extends MessageToMessageDecoder<WebSocket
 
   @Override
   public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+    cause.printStackTrace();
     ctx.close();
   }
 

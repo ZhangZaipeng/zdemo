@@ -1,28 +1,30 @@
 package com.example.zdemo.Im.netty.transport.netty;
 
-import com.example.zdemo.Im.netty.transport.exception.NullParamsException;
 import com.example.zdemo.Im.netty.transport.handler.HadlerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.concurrent.Future;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 /**
  * The implementation of NettyConfig.
  *
  */
-public class NettyConfigImpl implements NettyConfig {
-    private static final Logger logger = Logger.getLogger(NettyConfigImpl.class);
+@Component
+public class NettyServerImpl implements NettyServer {
+    private static final Logger logger = Logger.getLogger(NettyServerImpl.class);
 
-    private final ServerBootstrap bootstrap;
+
+    private ChannelFuture future;
+    private ServerBootstrap bootstrap;
     private EventLoopGroup parentGroup;
     private EventLoopGroup childGroup;
     private Class channelClass;
 
-    public NettyConfigImpl() {
+    public NettyServerImpl() {
         bootstrap = new ServerBootstrap();
     }
 
@@ -57,7 +59,7 @@ public class NettyConfigImpl implements NettyConfig {
         validate();
         bootstrap.group(parentGroup, childGroup);
         //配置客户端的channel类型
-        bootstrap.channel(NioServerSocketChannel.class);
+        bootstrap.channel(channelClass);
         //配置TCP参数，握手字符串长度设置
         bootstrap.option(ChannelOption.SO_BACKLOG, 1024);
         //TCP_NODELAY算法，尽可能发送大块数据，减少充斥的小块数据
@@ -77,8 +79,6 @@ public class NettyConfigImpl implements NettyConfig {
 
     @Override
     public void bind(int port, boolean sync) {
-        ChannelFuture future = null;
-
         try {
             future = bootstrap.bind(port).sync();
             logger.info("服务器启动成功 监听端口(" + port + ")");
@@ -102,9 +102,18 @@ public class NettyConfigImpl implements NettyConfig {
         if (parentGroup == null
                 || childGroup == null
                 || channelClass == null) {
-            throw new NullParamsException("parentGroup == null " +
+            throw new RuntimeException("parentGroup == null " +
                     "|| childGroup == null " +
                     "|| channelClass == null");
         }
+    }
+
+    @Override
+    public void run() {
+        this.setParentGroup(1);
+        this.setChildGroup();
+        this.setChannel(NioServerSocketChannel.class);
+        this.setHandler();
+        this.bind(18999);
     }
 }

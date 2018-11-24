@@ -4,7 +4,7 @@ package com.example.zdemo.Im.netty.transport.netty;
  * Netty配置接口.
  *
  */
-public interface NettyConfig {
+public interface NettyServer extends Runnable{
 
     /**
      * 设置parent处理器线程数为默认值，the number of processors available * 2
@@ -56,4 +56,5 @@ public interface NettyConfig {
      * @param sync 同步->true，异步->false
      */
     void bind(int port, boolean sync);
+
 }

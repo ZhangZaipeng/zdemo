@@ -161,7 +161,7 @@ public class WebSocketServerProtocolHandler extends WebSocketProtocolHandler {
                 ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
             }
 
-            // remove OnlineUserMap
+            // 移除 在线人
 
 
             return;

@@ -140,7 +140,7 @@ public class SendMsgPayload implements SendModel {
   }
 
   public static void main(String[] args) {
-    SendMsgPayload s = SendMsgPayload.newBuilder()
+    /*SendMsgPayload s = SendMsgPayload.newBuilder()
         .setFromAccount("from")
         .setToAccount("to")
         .setMsgRandom(123123)
@@ -158,6 +158,9 @@ public class SendMsgPayload implements SendModel {
         ).build()
     ;
 
-    System.out.println(s.toString());
+    System.out.println(s.toString());*/
+    System.out.println("1");
+    System.out.println(System.getProperty("line.separator").toString());
+    System.out.println("2");
   }
 }

@@ -8,8 +8,14 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope("singleton")
 public class HadlerInitializer extends ChannelInitializer<Channel> {
+
+
 
   @Override
   protected void initChannel(Channel channel) throws Exception {
@@ -18,9 +24,8 @@ public class HadlerInitializer extends ChannelInitializer<Channel> {
     pipeline.addLast(new HttpServerCodec());
     pipeline.addLast(new ChunkedWriteHandler());
     pipeline.addLast(new HttpObjectAggregator(64 * 1024));
-    pipeline.addLast("http-handler", new HttpReqHandler());
-    pipeline.addLast("handshake", new WebSocketServerProtocolHandler("/ws"));
+    pipeline.addLast("http-handler", new HttpRequestHandler("/ws"));
     pipeline.addLast("IdleStateHandler", new IdleStateHandler(30, 0, 0));
-    pipeline.addLast("text-websocket-handler", new TextWebSocketHandler());
+    pipeline.addLast("websocket-handler", new WebSocketServerHandler());
   }
 }

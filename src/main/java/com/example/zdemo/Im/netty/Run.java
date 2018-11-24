@@ -1,8 +1,8 @@
 package com.example.zdemo.Im.netty;
 
 import com.example.zdemo.Im.netty.service.ImAppContext;
-import com.example.zdemo.Im.netty.transport.netty.NettyConfig;
-import com.example.zdemo.Im.netty.transport.netty.NettyConfigImpl;
+import com.example.zdemo.Im.netty.transport.netty.NettyServer;
+import com.example.zdemo.Im.netty.transport.netty.NettyServerImpl;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
@@ -19,7 +19,7 @@ public class Run {
         // 启动服务
         new ImAppContext().initAndStart();
 
-        NettyConfig config = new NettyConfigImpl();
+        NettyServer config = new NettyServerImpl();
         config.setParentGroup(1);
         config.setChildGroup();
         config.setChannel(NioServerSocketChannel.class);
