@@ -199,7 +199,8 @@
     }
 
     if (WebSocketsExist) {
-      Log("您的浏览器支持WebSocket. 您可以尝试连接到聊天服务器!", "OK");
+      document.getElementById("LogContainer").innerHTML =
+          "您的浏览器支持WebSocket. 您可以尝试连接到聊天服务器!", "OK" + "<br />";
       document.getElementById("Connection").value = "127.0.0.1:18999/ws";
     } else {
       Log("您的浏览器不支持WebSocket。请选择其他的浏览器再尝试连接服务器。", "ERROR");
