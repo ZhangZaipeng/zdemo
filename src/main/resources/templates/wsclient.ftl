@@ -128,20 +128,20 @@
     auth.sig = "hahaha";
 
     ws.send(JSON.stringify(auth));
-    // ws.send("login:" + document.getElementById("txtName").value);
   };
 
   /**
    * ws 接受到回调
    */
   function WSonMessage(event) {
-    parseMessage(event.data);
+    var data = parseMessage(event.data);
+    Log(data);
   };
 
   function WSonClose() {
     lockOff();
     if (isUserloggedout)
-      Log("【"+document.getElementById("txtName").value+"】离开了聊天室！");
+      Log("【"+document.getElementById("sendUserId").value+"】离开了聊天室！");
     document.getElementById("ToggleConnection").innerHTML = "连接";
     $("#SendDataContainer").hide();
   };
@@ -154,11 +154,6 @@
 
   // 解析 服务器消息
   function parseMessage(Text) {
-
-  }
-
-  function Log(Text, MessageType) {
-
     var msg = JSON.parse(Text);
 
     // 发送者
@@ -172,6 +167,16 @@
     var boys = msg.MsgBody
     var msgNode = boys[0];
 
+    var msgType = msgNode.MsgType;
+    var data = '';
+    if (msgType = 'TextElem') {
+      data = msgNode.MsgContent.Text
+    }
+
+    return data
+  }
+
+  function Log(Text, MessageType) {
 
     if (MessageType == "OK") { Text = "<span style='color: green;'>" + Text + "</span>";}
     if (MessageType == "ERROR") { Text = "<span style='color: red;'>" + Text + "</span>";}
@@ -225,7 +230,8 @@
           data: JSON.stringify({
             sendUserId: parseInt($("#sendUserId").val()) ,
             receivUserId: parseInt($("#receivUserId").val()) ,
-            content: data
+            content: data,
+            type: 'TextElem'
           }) ,
           contentType: "application/json; charset=utf-8",
           dataType: "text",

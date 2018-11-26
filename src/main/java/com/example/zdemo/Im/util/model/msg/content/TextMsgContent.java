@@ -1,7 +1,9 @@
 package com.example.zdemo.Im.util.model.msg.content;
 
+import com.example.zdemo.Im.util.common.StringUtils;
 import com.example.zdemo.Im.util.model.SendModel;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 public class TextMsgContent implements SendModel, IMsgContent {
 
@@ -33,6 +35,10 @@ public class TextMsgContent implements SendModel, IMsgContent {
 
   @Override
   public JsonElement toJSON() {
-    return null;
+    JsonObject json = new JsonObject();
+    if (!StringUtils.isNullOrEmpty(text)) {
+      json.addProperty(TEXT, text);
+    }
+    return json;
   }
 }

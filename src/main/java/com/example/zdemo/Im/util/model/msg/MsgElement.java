@@ -4,6 +4,7 @@ import com.example.zdemo.Im.util.model.SendModel;
 import com.example.zdemo.Im.util.model.msg.content.IMsgContent;
 import com.example.zdemo.Im.util.model.msg.content.IMsgContent.M_TYPE;
 import com.example.zdemo.Im.util.model.msg.content.CustomMsgContent;
+import com.example.zdemo.Im.util.model.msg.content.TextMsgContent;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -30,6 +31,9 @@ public class MsgElement implements SendModel {
       if(msgContent instanceof CustomMsgContent) {
         json.addProperty(MSG_TYPE, M_TYPE.CustomType.getMsyType());
         json.add(MSG_CONTENT, ((CustomMsgContent) msgContent).toJSON());
+      } else if (msgContent instanceof TextMsgContent) {
+        json.addProperty(MSG_TYPE, M_TYPE.TextType.getMsyType());
+        json.add(MSG_CONTENT, ((TextMsgContent) msgContent).toJSON());
       }
     }
 

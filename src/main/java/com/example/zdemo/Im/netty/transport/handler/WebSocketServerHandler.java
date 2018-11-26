@@ -71,8 +71,6 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocke
 
     // 并返回 成功消息
     ctx.write("atuh success");
-    // test
-    ctx.writeAndFlush(frame.retain());
 
   }
 

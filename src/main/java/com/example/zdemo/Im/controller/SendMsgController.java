@@ -74,8 +74,8 @@ public class SendMsgController {
 
     if ("TextElem".equals(message.getMsgType())) {
       SendMsgPayload sendMsgPayload = SendMsgPayload.newBuilder()
-          .setFromAccount("from")
-          .setToAccount("to")
+          .setFromAccount(message.getSender().toString())
+          .setToAccount(message.getReceiver().toString())
           .setMsgRandom(IMUtil.random())
           .setMsgTimeStamp(179876666)
           .setMsgBodys(
@@ -83,7 +83,7 @@ public class SendMsgController {
                   MsgElement.newBuilder()
                       .setMsgContent(
                           TextMsgContent.newBuilder()
-                              .setText("data")
+                              .setText(message.getContent())
                               .build()).build()
               ).build()
           ).build();
