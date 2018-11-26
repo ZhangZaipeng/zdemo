@@ -60,16 +60,14 @@
   var SocketCreated = false;
   var isUserloggedout = false;
 
-  function lockOn(str)
-  {
+  function lockOn(str) {
     var lock = document.getElementById('skm_LockPane');
     if (lock)
       lock.className = 'LockOn';
     lock.innerHTML = str;
   }
 
-  function lockOff()
-  {
+  function lockOff() {
     var lock = document.getElementById('skm_LockPane');
     lock.className = 'LockOff';
   }
@@ -98,6 +96,7 @@
         Log(ex, "ERROR");
         return;
       }
+
       document.getElementById("ToggleConnection").innerHTML = "断开";
       ws.onopen = WSonOpen;
       ws.onmessage = WSonMessage;
@@ -141,13 +140,16 @@
 
 
   function Log(Text, MessageType) {
-    if (MessageType == "OK") Text = "<span style='color: green;'>" + Text + "</span>";
-    if (MessageType == "ERROR") Text = "<span style='color: red;'>" + Text + "</span>";
-    document.getElementById("LogContainer").innerHTML = document.getElementById("LogContainer").innerHTML + Text + "<br />";
+    if (MessageType == "OK") { Text = "<span style='color: green;'>" + Text + "</span>";}
+    if (MessageType == "ERROR") { Text = "<span style='color: red;'>" + Text + "</span>";}
+
+    document.getElementById("LogContainer").innerHTML =
+        document.getElementById("LogContainer").innerHTML + Text + "<br />";
+
     var LogContainer = document.getElementById("LogContainer");
+
     LogContainer.scrollTop = LogContainer.scrollHeight;
   };
-
 
   $(document).ready(function () {
     $("#SendDataContainer").hide();
@@ -155,12 +157,9 @@
     try {
       var dummy = new WebSocket("ws://localhost:8989/test");
     } catch (ex) {
-      try
-      {
+      try {
         webSocket = new MozWebSocket("ws://localhost:8989/test");
-      }
-      catch(ex)
-      {
+      } catch(ex) {
         WebSocketsExist = false;
       }
     }
@@ -173,17 +172,13 @@
       document.getElementById("ToggleConnection").disabled = true;
     }
 
-    $("#DataToSend").keypress(function(evt)
-    {
-      if (evt.keyCode == 13)
-      {
+    $("#DataToSend").keypress(function(evt) {
+      if (evt.keyCode == 13) {
         $("#SendData").click();
         evt.preventDefault();
       }
-    })
+    });
   });
-
 </script>
-
 </html>
 

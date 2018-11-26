@@ -1,6 +1,5 @@
 package com.example.zdemo.Im.netty.transport.handler;
 
-import com.example.zdemo.Im.netty.transport.handler.ws.WebSocketServerProtocolHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -15,8 +14,6 @@ import org.springframework.stereotype.Component;
 @Scope("singleton")
 public class HadlerInitializer extends ChannelInitializer<Channel> {
 
-
-
   @Override
   protected void initChannel(Channel channel) throws Exception {
     ChannelPipeline pipeline = channel.pipeline();
@@ -25,7 +22,7 @@ public class HadlerInitializer extends ChannelInitializer<Channel> {
     pipeline.addLast(new ChunkedWriteHandler());
     pipeline.addLast(new HttpObjectAggregator(64 * 1024));
     pipeline.addLast("http-handler", new HttpRequestHandler("/ws"));
-    pipeline.addLast("IdleStateHandler", new IdleStateHandler(30, 0, 0));
+    pipeline.addLast("IdleStateHandler", new IdleStateHandler(6, 0, 0));
     pipeline.addLast("websocket-handler", new WebSocketServerHandler());
   }
 }
