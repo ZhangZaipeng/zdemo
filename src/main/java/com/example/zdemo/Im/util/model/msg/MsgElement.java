@@ -1,7 +1,9 @@
 package com.example.zdemo.Im.util.model.msg;
 
 import com.example.zdemo.Im.util.model.SendModel;
-import com.example.zdemo.Im.util.model.msg.MsgContent.M_TYPE;
+import com.example.zdemo.Im.util.model.msg.content.IMsgContent;
+import com.example.zdemo.Im.util.model.msg.content.IMsgContent.M_TYPE;
+import com.example.zdemo.Im.util.model.msg.content.CustomMsgContent;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -10,9 +12,9 @@ public class MsgElement implements SendModel {
   private static final String MSG_TYPE = "MsgType";
   private static final String MSG_CONTENT = "MsgContent";
 
-  private MsgContent msgContent;
+  private IMsgContent msgContent;
 
-  public MsgElement(MsgContent msgContent) {
+  public MsgElement(IMsgContent msgContent) {
     this.msgContent = msgContent;
   }
 
@@ -35,9 +37,9 @@ public class MsgElement implements SendModel {
   }
 
   public static class Builder {
-    private MsgContent msgContent;
+    private IMsgContent msgContent;
 
-    public Builder setMsgContent(MsgContent msgContent) {
+    public Builder setMsgContent(IMsgContent msgContent) {
       this.msgContent = msgContent;
       return this;
     }

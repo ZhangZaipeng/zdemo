@@ -1,14 +1,17 @@
 1.消息类型
-  1.提醒消息
-    order提醒消息 OrderElem
+  1.提醒消息(由系统发出)
+    Order提醒消息 OrderElem
   2.聊天消息
-    文本消息 TxtElem
+    文本消息 TextElem
+    自定义消息 CustomElem
+
+  3.认证消息
 
 
 2.消息格式
 {
-	"From_Account": "from",
-	"To_Account": "to",
+	"FromAccount": "from",
+	"ToAccount": "to",
 	"MsgRandom": 123123,
 	"MsgTimeStamp": 179876666,
 	"MsgBody": [{

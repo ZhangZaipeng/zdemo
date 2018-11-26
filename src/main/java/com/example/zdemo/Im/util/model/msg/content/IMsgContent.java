@@ -1,8 +1,11 @@
-package com.example.zdemo.Im.util.model.msg;
+package com.example.zdemo.Im.util.model.msg.content;
 
-public interface MsgContent {
+public interface IMsgContent {
+
   enum M_TYPE {
-    CustomType("TIMCustomElem");
+
+    CustomType("CustomElem"), TextType("TextElem");
+
     private String msyType;
 
     M_TYPE(String msyType) {
@@ -12,5 +15,7 @@ public interface MsgContent {
     public String getMsyType() {
       return msyType;
     }
+
   }
+
 }

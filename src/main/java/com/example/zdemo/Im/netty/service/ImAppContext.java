@@ -1,5 +1,6 @@
 package com.example.zdemo.Im.netty.service;
 
+import com.example.zdemo.Im.dao.UserInfoDao;
 import com.example.zdemo.Im.netty.transport.data.ReceiveQueue;
 import com.example.zdemo.Im.netty.transport.netty.NettyServer;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
@@ -28,6 +29,9 @@ public class ImAppContext {
     @Autowired
     private NettyServer config;
 
+    @Autowired
+    private UserInfoDao userInfoDao;
+
     private Thread nettyThread;
 
     public static AtomicBoolean shutdown = new AtomicBoolean(false);
@@ -50,6 +54,7 @@ public class ImAppContext {
     private void startNetty() {
         nettyThread = new Thread(config);
         logger.info("开启独立线程，启动Netty WebSocket服务器...");
+        userInfoDao.loadUserInfo();
         nettyThread.start();
     }
 

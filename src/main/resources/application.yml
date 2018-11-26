@@ -11,6 +11,9 @@ server:
 spring:
   freemarker:
     suffix: .ftl
+    cache: false
   # 静态资源引用
   mvc:
     static-path-pattern: /static/**
+
+websocketPath: /ws

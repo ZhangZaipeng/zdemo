@@ -2,6 +2,7 @@ package com.example.zdemo.Im.util.model.msg;
 
 import com.example.zdemo.Im.util.common.StringUtils;
 import com.example.zdemo.Im.util.model.SendModel;
+import com.example.zdemo.Im.util.model.msg.content.CustomMsgContent;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -26,11 +27,10 @@ public class SendMsgPayload implements SendModel {
   private Integer msgRandom;
   private Integer msgTimeStamp;
   private MsgBodys msgBodys;
-  private OfflinePushInfo offlinePushInfo;
 
   public SendMsgPayload(Integer syncOtherMachine, String fromAccount, String toAccount,
       Integer msgLifeTime, Integer msgRandom, Integer msgTimeStamp,
-      MsgBodys msgBodys, OfflinePushInfo offlinePushInfo) {
+      MsgBodys msgBodys) {
     this.syncOtherMachine = syncOtherMachine;
     this.fromAccount = fromAccount;
     this.toAccount = toAccount;
@@ -38,7 +38,6 @@ public class SendMsgPayload implements SendModel {
     this.msgRandom = msgRandom;
     this.msgTimeStamp = msgTimeStamp;
     this.msgBodys = msgBodys;
-    this.offlinePushInfo = offlinePushInfo;
   }
 
   @Override
@@ -65,9 +64,6 @@ public class SendMsgPayload implements SendModel {
     if (null != msgBodys) {
       json.add(MSG_BODY, msgBodys.toJSON());
     }
-    if (null != offlinePushInfo) {
-      json.add(OFFLINE_PUSH_INFO, offlinePushInfo.toJSON());
-    }
 
     return json;
   }
@@ -84,7 +80,6 @@ public class SendMsgPayload implements SendModel {
     private Integer msgRandom;
     private Integer msgTimeStamp;
     private MsgBodys msgBodys;
-    private OfflinePushInfo offlinePushInfo;
 
     public Builder setSyncOtherMachine(Integer syncOtherMachine) {
       this.syncOtherMachine = syncOtherMachine;
@@ -121,15 +116,10 @@ public class SendMsgPayload implements SendModel {
       return this;
     }
 
-    public Builder setOfflinePushInfo(OfflinePushInfo offlinePushInfo) {
-      this.offlinePushInfo = offlinePushInfo;
-      return this;
-    }
-
     public SendMsgPayload build() {
       return new SendMsgPayload(syncOtherMachine, fromAccount, toAccount,
           msgLifeTime, msgRandom, msgTimeStamp,
-          msgBodys, offlinePushInfo);
+          msgBodys);
     }
 
   }
@@ -140,27 +130,5 @@ public class SendMsgPayload implements SendModel {
   }
 
   public static void main(String[] args) {
-    /*SendMsgPayload s = SendMsgPayload.newBuilder()
-        .setFromAccount("from")
-        .setToAccount("to")
-        .setMsgRandom(123123)
-        .setMsgTimeStamp(179876666)
-        .setMsgBodys(
-            MsgBodys.newBuilder().setElement(
-                MsgElement.newBuilder()
-                    .setMsgContent(CustomMsgContent.newBuilder()
-                        .setData("data")
-                        .setDesc("desc")
-                        .setExt("ext")
-                        .setSound("sound")
-                        .build()).build()
-            ).build()
-        ).build()
-    ;
-
-    System.out.println(s.toString());*/
-    System.out.println("1");
-    System.out.println(System.getProperty("line.separator").toString());
-    System.out.println("2");
   }
 }

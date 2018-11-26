@@ -22,18 +22,20 @@ import io.netty.handler.ssl.SslHandler;
 import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope("singleton")
 public class HttpRequestHandler extends SimpleChannelInboundHandler<Object> {
 
   private static final Logger logger = LoggerFactory.getLogger(HttpRequestHandler.class);
 
   private WebSocketServerHandshaker handshaker;
 
+  @Value("${websocketPath}")
   private String websocketPath;
-
-  public HttpRequestHandler(String websocketPath) {
-    this.websocketPath = websocketPath;
-  }
 
   @Override
   protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
