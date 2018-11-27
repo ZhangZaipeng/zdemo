@@ -12,4 +12,9 @@ public class TestController {
   public ModelAndView init(){
     return new ModelAndView("wsclient");
   }
+
+  @RequestMapping("/h5.htm")
+  public ModelAndView h5init(){
+    return new ModelAndView("h5chat");
+  }
 }
