@@ -23,10 +23,6 @@ public class MsgBodys implements SendModel {
 		this.msgElements = msgElements;
 	}
 
-	public Set<MsgElement> getMsgElements() {
-		return msgElements;
-	}
-
 	public static Builder newBuilder() {
 		return new Builder();
 	}
@@ -35,7 +31,7 @@ public class MsgBodys implements SendModel {
 	public JsonElement toJSON() {
 		JsonArray json = new JsonArray();
 
-		if (null != msgElements) {
+		if (null != msgElements && msgElements.size() > 0) {
 			for (MsgElement e : msgElements) {
 				json.add(e.toJSON());
 			}
@@ -44,13 +40,10 @@ public class MsgBodys implements SendModel {
 	}
 
 	public static class Builder {
-		private Set<MsgElement> msgElements;
+		private Set<MsgElement> msgElements = new HashSet<>();;
 
 		public Builder setElement(MsgElement e){
-			if (msgElements == null) {
-				msgElements = new HashSet<>();
-			}
-			msgElements.add(e);
+			this.msgElements.add(e);
 			return this;
 		}
 		public MsgBodys build() {

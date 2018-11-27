@@ -17,7 +17,6 @@ import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -26,9 +25,6 @@ import org.springframework.stereotype.Component;
 public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
 
   private final Logger logger = LoggerFactory.getLogger(WebSocketServerHandler.class);
-
-  @Autowired
-  private UserInfoDao userInfoDao;
 
   @Override
   protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame msg) throws Exception {

@@ -8,7 +8,7 @@ import com.google.gson.JsonObject;
 public class CustomMsgContent implements SendModel, IMsgContent {
 
   /**  */
-  private static final String DATA = "Data";
+private static final String DATA = "Data";
 
   private String data;
 

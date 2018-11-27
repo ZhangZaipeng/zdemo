@@ -4,7 +4,7 @@ public interface IMsgContent {
 
   enum M_TYPE {
 
-    CustomType("CustomElem"), TextType("TextElem");
+    CustomType("CustomElem"), TextType("TextElem"), ImgType("ImgElem"), BusType("BusElem") ;
 
     private String msyType;
 

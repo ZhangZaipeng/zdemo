@@ -1,28 +1,93 @@
-1.消息类型
-  1.提醒消息(由系统发出)
+1.聊天种类
+  1.订单聊天消息
+  2.客服聊天消息
+  3.系统消息(由系统发出)
     Order提醒消息 OrderElem
-  2.聊天消息
-    文本消息 TextElem
-    自定义消息 CustomElem
-
-  3.认证消息
+    订单已付款
+    订单已评价
+    订单已下架
 
 
 2.消息格式
-{
-	"FromAccount": "from",
-	"ToAccount": "to",
-	"MsgRandom": 123123,
-	"MsgTimeStamp": 179876666,
-	"MsgBody": [{
-		"MsgType": "TxtElem",
-		"MsgContent": {
-			"Data": "data",
-			"Desc": "desc",
-			"Ext": "ext",
-			"Sound": "sound"
-		}
-	}]
-}
+  {
+    "FromAccount": {"userId": 897721123, "headUrl": weruiweu , "nikeName": 哈哈哈1},
+    "ToAccount": {"userId": 897721123, "headUrl": weruiweu , "nikeName": 哈哈哈2},
+    "MsgRandom": 123123,
+    "MsgTimeStamp": 179876666,
+    "MsgBody": [
+      {
+        "MsgType": "TxtElem",
+        "MsgContent": {
+          "Text": "消息内容"
+        }
+      }, {
+        "MsgType": "BusElem",
+        "MsgContent": {
+          "Bus": "{\"busCode\": , \"transNo\": 999999 }"
+        }
+      }
+    ]
+  }
 
-3.好友列表
+  eg： 格式说明
+    1.FromAccount 对象，
+      userId ： 用户ID
+      headUrl ： 头像url
+      nikeName : 昵称
+    2.ToAccount 对象，
+      同上 FromAccount
+    3.MsgBody 是个数组 （包含两个节点）
+      第一个节点 消息节点
+      第二个节点 是与消息节点相关的业务数据
+    4.MsgTimeStamp 消息时间戳
+
+3.消息种类
+  文本消息 （TextElem）
+  {
+    "MsgType": "TxtElem",
+    "MsgContent": {
+      "Text": "消息内容"
+    }
+  }
+
+  图片消息 （ImgElem）
+  {
+    "MsgType": "ImgElem",
+    "MsgContent": {
+      "Imgs": [{"width": 80, "height": 100, "url": },{"width": 80, "height": 100, "url": }]
+    }
+  }
+
+  自定义消息 （CustomElem）
+  {
+    "MsgType": "CustomElem",
+    "MsgContent": {
+      "Data": "自定义 内容"
+    }
+  }
+
+  认证消息
+  {
+    "MsgType": "AuthElem",
+    "MsgContent": {
+      "Text": "认证结果"
+    }
+  }
+
+  业务消息 （BusElem）
+  {
+    "MsgType": "BusElem",
+    "MsgContent": {
+      "Bus": {"busCode": 101221, "transNo": 999999}
+    }
+  }
+  eg: 可以根据不用 业务种类 ，区分消息走向
+    busCode: 业务编号（必选）
+    （10111， 订单提醒）
+    （10121， 订单聊天）
+    （20101， 客服聊天）
+    transNo： 对应业务唯一ID（可选）
+
+
+4.客服表
+

@@ -1,7 +1,6 @@
 package com.example.zdemo.Im.netty.transport.connection;
 
 import io.netty.channel.Channel;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -10,7 +9,7 @@ import org.apache.log4j.Logger;
 
 /**
  * 连接池，用户维护已与服务器建立连接的Client
- * <p>
+ *
  */
 public class ConnPool {
     private static final Logger logger = Logger.getLogger(ConnPool.class);
