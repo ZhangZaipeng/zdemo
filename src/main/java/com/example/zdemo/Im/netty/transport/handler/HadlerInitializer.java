@@ -7,6 +7,7 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
+import java.util.concurrent.TimeUnit;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +23,7 @@ public class HadlerInitializer extends ChannelInitializer<Channel> {
     pipeline.addLast(new ChunkedWriteHandler());
     pipeline.addLast(new HttpObjectAggregator(64 * 1024));
     pipeline.addLast("http-handler", new HttpRequestHandler());
-    pipeline.addLast("IdleStateHandler", new IdleStateHandler(6, 0, 0));
+    pipeline.addLast("IdleStateHandler", new IdleStateHandler(0, 0, 10, TimeUnit.SECONDS));
     pipeline.addLast("websocket-handler", new WebSocketServerHandler());
   }
 }

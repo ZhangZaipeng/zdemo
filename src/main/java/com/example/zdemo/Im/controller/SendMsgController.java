@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 发送消息
+ */
 @RestController
 public class SendMsgController {
 
@@ -76,7 +79,7 @@ public class SendMsgController {
       SendMsgPayload sendMsgPayload = SendMsgPayload.newBuilder()
           .setFromAccount(message.getSender().toString())
           .setToAccount(message.getReceiver().toString())
-          .setMsgTimeStamp(179876666)
+          .setMsgTimeStamp(System.currentTimeMillis() / 1000)
           .setMsgBodys(
               MsgBodys.newBuilder().setElement(
                   MsgElement.newBuilder()

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.zdemo.Im.dao.UserInfoDao;
 import com.example.zdemo.Im.domain.UserInfo;
 import com.example.zdemo.Im.netty.transport.connection.ConnPool;
+import com.example.zdemo.Im.util.common.StringUtils;
 import com.google.gson.Gson;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
@@ -15,6 +16,7 @@ import io.netty.handler.codec.http.websocketx.PongWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import java.util.Map;
+import org.bouncycastle.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -52,22 +54,38 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocke
     }
 
     TextWebSocketFrame t = (TextWebSocketFrame) frame;
-    // 是否已经 完成 认证
-    // yes return
+    if (!authLogin(t, ctx)){
+      ctx.close();
+    }
+  }
 
+  private Boolean authLogin(TextWebSocketFrame t, ChannelHandlerContext ctx) {
 
-    Gson g = new Gson();
-    Map<String,Object> r = g.fromJson(t.text(), Map.class);
-    Long userId = Long.parseLong(r.get("userId").toString());
+    // 解析数据
+    String data = t.text();
+    logger.info("authLogin =====> " + data);
+    String[] s = StringUtils.splitFirst(data,"&");
 
-    //  认证操作 （登录 sig + userId ） UserInfo u = userInfoDao.getByUserId(userId);
+    if (s.length == 2) {
+      String userId = s[0];
+      String sig = s[1];
+      // 判断 sig redis 中
+      if (sig.equals("")) { // 认证正确
+        ConnPool.add(userId,ctx.channel());
 
-    // 成功后  添加到在线 OnlineUserMap
-    ConnPool.add(userId,ctx.channel());
+        // 添加心跳检测
+        ctx.channel().pipeline().addAfter("IdleStateHandler",
+            "HeartbeatHandler", new HeartbeatHandler(ctx.channel()));
 
-    // 并返回 成功消息
-    ctx.write("atuh success");
-
+        // 并返回 成功消息
+        ctx.writeAndFlush("atuh_ok");
+        return true;
+      }
+      logger.error("authLogin =====> sig 校验错误 ");
+      return false;
+    }
+    logger.error("authLogin =====> 错误 认证数据结构 ");
+    return false;
   }
 
 }

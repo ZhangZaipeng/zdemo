@@ -8,7 +8,6 @@ import io.netty.util.ReferenceCountUtil;
 
 /**
  * 业务分发器.
- *
  */
 public class Dispatcher {
 

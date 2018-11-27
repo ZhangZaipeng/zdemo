@@ -5,20 +5,21 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * 连接池，用户维护已与服务器建立连接的Client
- *
+ * 连接池，用户维护已与服务器建立连接的 Client
  */
 public class ConnPool {
-    private static final Logger logger = Logger.getLogger(ConnPool.class);
+
+    private static final Logger logger = LoggerFactory.getLogger(ConnPool.class);
 
     private ConnPool() {
     }
 
     // 用于存放在线用户的userId和channel
-    private static Map<Long, Channel> connsMap =
+    private static Map<String, Channel> connsMap =
             new ConcurrentHashMap<>();
 
     /**
@@ -28,7 +29,7 @@ public class ConnPool {
      * @param channel
      * @return
      */
-    public synchronized static boolean add(Long userId, Channel channel) {
+    public synchronized static boolean add(String userId, Channel channel) {
         Channel result = connsMap.put(userId, channel);
         if (result == null) {
             logger.info("Conn池 添加成功(userId=" + userId + " channel=" + channel + ")");
@@ -45,7 +46,7 @@ public class ConnPool {
      * @param userId
      * @return
      */
-    public synchronized static boolean remove(Long userId) {
+    public synchronized static boolean remove(String userId) {
         Channel result = connsMap.remove(userId);
         if (result != null) {
             logger.info("Conn池 移除成功(userId=" + userId + ")");
@@ -62,7 +63,7 @@ public class ConnPool {
      * @param userId
      * @return
      */
-    public synchronized static Channel query(Long userId) {
+    public synchronized static Channel query(String userId) {
         return connsMap.get(userId);
     }
 
@@ -72,11 +73,11 @@ public class ConnPool {
      * @param channel
      * @return
      */
-    public synchronized static Long query(Channel channel) {
-        Set<Map.Entry<Long, Channel>> entries = connsMap.entrySet();
-        Iterator<Map.Entry<Long, Channel>> ite = entries.iterator();
+    public synchronized static String query(Channel channel) {
+        Set<Map.Entry<String, Channel>> entries = connsMap.entrySet();
+        Iterator<Map.Entry<String, Channel>> ite = entries.iterator();
         while (ite.hasNext()) {
-            Map.Entry<Long, Channel> entry = ite.next();
+            Map.Entry<String, Channel> entry = ite.next();
             if (channel.equals(entry.getValue())) {
                 return entry.getKey();
             }

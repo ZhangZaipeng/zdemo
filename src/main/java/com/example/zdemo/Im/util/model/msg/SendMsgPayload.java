@@ -20,11 +20,11 @@ public class SendMsgPayload implements SendModel {
 
   private String fromAccount;
   private String toAccount;
-  private Integer msgTimeStamp;
+  private Long msgTimeStamp;
   private MsgBodys msgBodys;
 
   public SendMsgPayload(String fromAccount, String toAccount,
-       Integer msgTimeStamp, MsgBodys msgBodys) {
+      Long msgTimeStamp, MsgBodys msgBodys) {
     this.fromAccount = fromAccount;
     this.toAccount = toAccount;
     this.msgTimeStamp = msgTimeStamp;
@@ -57,7 +57,7 @@ public class SendMsgPayload implements SendModel {
   public static class Builder {
     private String fromAccount;
     private String toAccount;
-    private Integer msgTimeStamp;
+    private Long msgTimeStamp;
     private MsgBodys msgBodys;
 
     public Builder setFromAccount(String fromAccount) {
@@ -70,7 +70,7 @@ public class SendMsgPayload implements SendModel {
       return this;
     }
 
-    public Builder setMsgTimeStamp(Integer msgTimeStamp) {
+    public Builder setMsgTimeStamp(Long msgTimeStamp) {
       this.msgTimeStamp = msgTimeStamp;
       return this;
     }
@@ -81,7 +81,7 @@ public class SendMsgPayload implements SendModel {
     }
 
     public SendMsgPayload build() {
-      return new SendMsgPayload( fromAccount, toAccount, msgTimeStamp, msgBodys);
+      return new SendMsgPayload(fromAccount, toAccount, msgTimeStamp, msgBodys);
     }
 
   }
@@ -96,7 +96,7 @@ public class SendMsgPayload implements SendModel {
     SendMsgPayload s = SendMsgPayload.newBuilder()
         .setFromAccount("from")
         .setToAccount("to")
-        .setMsgTimeStamp(179876666)
+        .setMsgTimeStamp(179876666L)
         .setMsgBodys(
             MsgBodys.newBuilder().setElement(
                 MsgElement.newBuilder()
