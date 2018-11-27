@@ -12,7 +12,6 @@
   {
     "FromAccount": {"userId": 897721123, "headUrl": weruiweu , "nikeName": 哈哈哈1},
     "ToAccount": {"userId": 897721123, "headUrl": weruiweu , "nikeName": 哈哈哈2},
-    "MsgRandom": 123123,
     "MsgTimeStamp": 179876666,
     "MsgBody": [
       {

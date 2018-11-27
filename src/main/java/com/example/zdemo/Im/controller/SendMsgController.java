@@ -76,7 +76,6 @@ public class SendMsgController {
       SendMsgPayload sendMsgPayload = SendMsgPayload.newBuilder()
           .setFromAccount(message.getSender().toString())
           .setToAccount(message.getReceiver().toString())
-          .setMsgRandom(IMUtil.random())
           .setMsgTimeStamp(179876666)
           .setMsgBodys(
               MsgBodys.newBuilder().setElement(
