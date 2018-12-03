@@ -1,6 +1,5 @@
-package com.example.zdemo.Im.util.common;
+package com.example.zdemo.utils;
 
-import com.example.zdemo.Im.util.common.StringUtils;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import java.io.IOException;
@@ -44,7 +43,8 @@ import org.slf4j.LoggerFactory;
 
 public class HttpStreamUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(HttpStreamUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(
+        HttpStreamUtil.class);
 
     // 连接超时时间
     private static final int CONNECTION_TIMEOUT = 30000;// 30秒
@@ -187,8 +187,8 @@ public class HttpStreamUtil {
         return getHttpEntityStr(response, encoding);
     }
 
-    public static String invokePost(String url, String content) throws IOException{
-        return invokePost(url,CONNECTION_TIMEOUT,READ_DATA_TIMEOUT,new HashMap<>(),content,D_ENCODING);
+    public static String invokePost(String url, Map<String, String> headers,String content) throws IOException{
+        return invokePost(url,CONNECTION_TIMEOUT,READ_DATA_TIMEOUT,headers, content,D_ENCODING);
     }
 
     private static String invokePost(String url, int connectTimeout, int readTimeout,
