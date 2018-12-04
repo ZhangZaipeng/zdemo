@@ -1,16 +1,18 @@
 1.聊天种类
-  1.订单聊天消息
-  2.客服聊天消息
-  3.系统消息(由系统发出)
-    Order提醒消息 OrderElem
-    订单已付款
-    订单已评价
-    订单已下架
+  1.订单聊天消息 （busCode : 10201 ~ 10299）
+  2.客服聊天消息 （busCode : 20101 ~ 20199）
+  3.系统消息（由系统发出）
+    Order提醒消息 （busCode: 10101 ~ 10199）
+      订单已付款 10101
+      订单已评价 10102
+      订单已下架 10103
+    心跳提醒消息  （busCode: 10301）
 
 2.消息格式
   {
-    "FromAccount": {"userId": 897721123, "headUrl": weruiweu , "nikeName": 哈哈哈1},
-    "ToAccount": {"userId": 897721123, "headUrl": weruiweu , "nikeName": 哈哈哈2},
+    "MsgId": 14257,
+    "FromAccount": {"UserId": "897721123", "HeadUrl": weruiweu , "NikeName": 哈哈哈1},
+    "ToAccount": {"UserId": "897721123", "HeadUrl": weruiweu , "NikeName": 哈哈哈2},
     "MsgTimeStamp": 179876666,
     "MsgBody": [
       {
@@ -21,26 +23,27 @@
       }, {
         "MsgType": "BusElem",
         "MsgContent": {
-          "Bus": "{\"busCode\": , \"transNo\": 999999 }"
+          "Bus": {"busCode": , "transNo": 999999 }
         }
       }
     ]
   }
 
   eg： 格式说明
-    1.FromAccount 对象，
+    1.MsgId： 消息唯一标识
+    2.FromAccount 对象，
       userId ： 用户ID
       headUrl ： 头像url
       nikeName : 昵称
-    2.ToAccount 对象，
+    3.ToAccount 对象，
       同上 FromAccount
-    3.MsgBody 是个数组 （包含两个节点）
+    4.MsgBody 是个数组 （包含两个节点）
       第一个节点 消息节点
       第二个节点 是与消息节点相关的业务数据
-    4.MsgTimeStamp 消息时间戳
+    5.MsgTimeStamp 消息时间戳
 
 3.消息种类
-  文本消息 （TextElem）
+  1.文本消息 （TextElem）
   {
     "MsgType": "TxtElem",
     "MsgContent": {
@@ -48,7 +51,7 @@
     }
   }
 
-  图片消息 （ImgElem）
+  2.图片消息 （ImgElem）
   {
     "MsgType": "ImgElem",
     "MsgContent": {
@@ -56,7 +59,7 @@
     }
   }
 
-  自定义消息 （CustomElem）
+  3.自定义消息 （CustomElem）
   {
     "MsgType": "CustomElem",
     "MsgContent": {
@@ -64,15 +67,7 @@
     }
   }
 
-  认证消息
-  {
-    "MsgType": "AuthElem",
-    "MsgContent": {
-      "Text": "认证结果"
-    }
-  }
-
-  业务消息 （BusElem）
+  4.业务消息 （BusElem）
   {
     "MsgType": "BusElem",
     "MsgContent": {
@@ -86,11 +81,19 @@
     （20101， 客服聊天）
     transNo： 对应业务唯一ID（可选）
 
-  心跳消息 （HeartbeatElem）
+  5.心跳消息 （BeatElem）
   {
     "MsgType": "HeartbeatElem",
     "MsgContent": {
-      "Data": "HEARTBEAT"
+      "Beat": "HEARTBEAT"
+    }
+  }
+
+  6.认证消息
+  {
+    "MsgType": "AuthElem",
+    "MsgContent": {
+      "Auth": "认证结果"
     }
   }
 

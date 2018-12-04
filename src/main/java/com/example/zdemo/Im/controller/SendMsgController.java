@@ -35,8 +35,8 @@ public class SendMsgController {
   public String sendMsg(@RequestBody SendMsgBo sendMsgBo) {
 
     // 参数检验
-    Long senderUserId = sendMsgBo.getSendUserId();
-    Long receiverUserId = sendMsgBo.getReceivUserId();
+    String senderUserId = sendMsgBo.getSendUserId();
+    String receiverUserId = sendMsgBo.getReceivUserId();
     String content = sendMsgBo.getContent();
     String msgType = sendMsgBo.getType();
 

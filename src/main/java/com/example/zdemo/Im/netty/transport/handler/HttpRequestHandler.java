@@ -54,7 +54,7 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<Object> {
 
     } else if (msg instanceof CloseWebSocketFrame) { // 判断是否关闭链路命令
       handshaker.close(ctx.channel(), ((CloseWebSocketFrame) msg).retain());
-      Long userId = ConnPool.query(ctx.channel());
+      String userId = ConnPool.query(ctx.channel());
       ConnPool.remove(userId);
     } else if (msg instanceof WebSocketFrame) {
       ctx.fireChannelRead(((WebSocketFrame) msg).retain());

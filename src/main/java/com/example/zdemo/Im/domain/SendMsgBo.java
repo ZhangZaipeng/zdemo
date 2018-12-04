@@ -2,24 +2,33 @@ package com.example.zdemo.Im.domain;
 
 public class SendMsgBo {
 
-  private Long sendUserId;
-  private Long receivUserId;
+  private String sendUserId;
+  private String receivUserId;
   private String content;
   private String type;
+  private String sig;
 
-  public Long getSendUserId() {
+  public String getSig() {
+    return sig;
+  }
+
+  public void setSig(String sig) {
+    this.sig = sig;
+  }
+
+  public String getSendUserId() {
     return sendUserId;
   }
 
-  public void setSendUserId(Long sendUserId) {
+  public void setSendUserId(String sendUserId) {
     this.sendUserId = sendUserId;
   }
 
-  public Long getReceivUserId() {
+  public String getReceivUserId() {
     return receivUserId;
   }
 
-  public void setReceivUserId(Long receivUserId) {
+  public void setReceivUserId(String receivUserId) {
     this.receivUserId = receivUserId;
   }
 
