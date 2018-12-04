@@ -15,8 +15,7 @@ public class R {
 
   public static List<Withdrawals> shopWithdrawals() {
     Map<String,String> heads = new HashMap<>();
-    heads.put("requestid","5d32b452-de73-458d-b841-8452669c7d20");
-    heads.put("x-auth-token","c9d0f652-a8a0-43a7-976c-9e858009cf88");
+    heads.put("x-auth-token","cfd29359-03c5-4f98-b72e-a0510e876bdc");
     heads.put("user-agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
     heads.put("x-requested-with","XMLHttpRequest");
 
@@ -43,8 +42,7 @@ public class R {
 
   public static void applies(Withdrawals w) {
     Map<String,String> heads = new HashMap<>();
-    heads.put("requestid","5d32b452-de73-458d-b841-8452669c7d20");
-    heads.put("x-auth-token","c9d0f652-a8a0-43a7-976c-9e858009cf88");
+    heads.put("x-auth-token","cfd29359-03c5-4f98-b72e-a0510e876bdc");
     heads.put("user-agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
     heads.put("x-requested-with","XMLHttpRequest");
 
