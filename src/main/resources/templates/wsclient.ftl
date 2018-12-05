@@ -65,7 +65,7 @@
       <br />
     </form>
 </body>
-<script src="/static/js/jquery-min.js" type="text/javascript"></script>
+<script src="/static/jquery-min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
   var ws;

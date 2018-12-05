@@ -13,9 +13,9 @@ public class R {
 
   private static Logger logger = LoggerFactory.getLogger(R.class);
 
-  public static List<Withdrawals> shopWithdrawals() {
+  public static List<Withdrawals> shopWithdrawals(String token) {
     Map<String,String> heads = new HashMap<>();
-    heads.put("x-auth-token","cfd29359-03c5-4f98-b72e-a0510e876bdc");
+    heads.put("x-auth-token", token);
     heads.put("user-agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
     heads.put("x-requested-with","XMLHttpRequest");
 
@@ -40,9 +40,9 @@ public class R {
     return c.content;
   }
 
-  public static void applies(Withdrawals w) {
+  public static void applies(Withdrawals w, String token) {
     Map<String,String> heads = new HashMap<>();
-    heads.put("x-auth-token","cfd29359-03c5-4f98-b72e-a0510e876bdc");
+    heads.put("x-auth-token", token);
     heads.put("user-agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36");
     heads.put("x-requested-with","XMLHttpRequest");
 
@@ -50,9 +50,10 @@ public class R {
       Map<String,String> p1 = new HashMap<>();
       p1.put("shopWithdrawalId",w.getId());
       p1.put("amount",w.getTotalNotWithdrawn() + "");
-      Gson gson = new Gson();
+
       String jsonp = gson.toJson(p1);
       logger.info(jsonp);
+
       try {
         logger.info(HttpStreamUtil.invokePost("https://www.quanfutong888.com/api/cashier/applies", heads,jsonp));
       } catch (IOException e) {

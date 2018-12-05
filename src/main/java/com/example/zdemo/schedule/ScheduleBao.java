@@ -2,6 +2,7 @@ package com.example.zdemo.schedule;
 
 import com.example.zdemo.utils.R;
 import com.example.zdemo.utils.R.Withdrawals;
+import com.example.zdemo.utils.StringUtils;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -10,21 +11,43 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ScheduleBao {
+  public static boolean isRunning = false;
 
-  @Autowired
-  private ThreadPoolTaskExecutor executor;
+  private String token;
+
+  public String getToken() {
+    return token;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
+  }
 
   @Scheduled(cron = "0/1 * * * * *")
-  public void run() {
-    System.out.println("kkkkkkkkkkkkkkkkkkkkk");
-    List<Withdrawals> r =  R.shopWithdrawals();
+  public void execute() {
+    if (isRunning) {
+      return;
+    }
+    if (StringUtils.isNullOrEmpty(token)) {
+      return;
+    }
 
-    if (r != null && r.size() > 0) {
-      for (Withdrawals w : r) {
-        if (w.getTotalNotWithdrawn() > 0) {
-          R.applies(w);
+    try {
+
+      List<Withdrawals> r =  R.shopWithdrawals(token);
+
+      if (r != null && r.size() > 0) {
+        for (Withdrawals w : r) {
+          if (w.getTotalNotWithdrawn() > 0) {
+            R.applies(w,token);
+          }
         }
       }
+
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+
   }
+
 }
