@@ -1,92 +1,71 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-  <title>Web sockets test</title>
+  <title>全付通抢单系统</title>
+  <script src="/static/jquery-min.js"></script>
   <style type="text/css">
-    .container {
-      font-family: "Courier New";
-      width: 680px;
-      height: 300px;
-      overflow: auto;
-      border: 1px solid black;
-    }
     .LockOff {
       display: none;
       visibility: hidden;
     }
-    .LockOn {
-      display: block;
-      visibility: visible;
-      position: absolute;
-      z-index: 999;
-      top: 0px;
-      left: 0px;
-      width: 1024%;
-      height: 768%;
-      background-color: #ccc;
-      text-align: center;
-      padding-top: 20%;
-      filter: alpha(opacity=75);
-      opacity: 0.75;
-    }
   </style>
-</head>
+  <script type="text/javascript">
 
-<body>
-<div id="skm_LockPane" class="LockOff"></div>
-<form id="form1" runat="server">
-  <h1>QFT</h1>
-  <br />
-  X-Auth-Token: <input type="text" id='token1' />
-  <#if isRunning >
-    <button id='start' value="1" >暂停</button>
-  <#else>
-    <button id='start' value="2" >开始</button>
-  </#if>
-  <br/>
-
-  <#--用户名： <input type="text" id="userNane" value="黄晓安"/>
-  <br/>
-  用户名ID： <input type="text" id="sendUserId" value="101"/>
-  <br/>
-  发送人Id： <input type="text" id="receivUserId" value="102"/>
-  <br/>
-
-  <br />
-
-  <div id='LogContainer' class='container'>
-
-  </div>
-  <br />
-
-  <div id='SendDataContainer'>
-    <input type="text" id="DataToSend" size="88" />
-    <button id='SendData' type="button">发送</button>
-  </div>
-
-  <br />-->
-</form>
-</body>
-<script src="/static/jquery-min.js"></script>
-
-<script type="text/javascript">
-  $(document).ready(function () {
-
-    $("#start").click(function () {
-      var type = $("#start").attr("value");
+    function aa(){
       var token = $("#token1").val();
-
+      $("#start").hide();
+      $("#end").show();
+      $("#DataToSend").html($("#DataToSend").html() + token+"<br/>"+"扫描开始...");
       $.ajax({
         type: "GET",
-        url: "/start.json?type="+ type + "&token=" + token,
+        url: "/start.json?type=2&token=" + token,
 
         dataType: "text",
-        success: function(data){
-          window.location.reload();
+        success: function (data) {
+          $("#DataToSend").html($("#DataToSend").html() + "持续扫描中...");
+        },
+        error: function(){
+          $("#DataToSend").html($("#DataToSend").html() + "登录失败");
         }
       });
+    }
 
-    });
-  });
-</script>
+    function bb(){
+      var token = $("#token1").val();
+      $("#start").show();
+      $("#end").hide();
+      $.ajax({
+        type: "GET",
+        url: "/start.json?type=1&token=" + token,
+
+        dataType: "text",
+        success: function (data) {
+          $("#DataToSend").html($("#DataToSend").html() + token+"扫描结束");
+        },
+        error: function(){
+          $("#DataToSend").html($("#DataToSend").html() + "登录失败");
+        }
+      });
+    }
+  </script>
+</head>
+
+<body style="background-color: #cccccc">
+<div id="skm_LockPane" class="LockOff"></div>
+<form id="form1" runat="server">
+  <h1>全付通抢单系统</h1>
+  <br />
+  <div style="float: left"><span style="font-family: 新宋体">X-Auth-Token: </span>&nbsp;&nbsp;<input type="text" id='token1' /></div>&nbsp;&nbsp;&nbsp;&nbsp;
+
+  <button id='start' value="2" onclick="aa()" style="border-radius: 25px;background-color: white">开始</button>
+  <button id='end' value="1" onclick="bb()" style="border-radius: 25px;background-color: white">暂停</button>
+
+  <br />
+  <br />
+  <div style="border: 1px solid blanchedalmond;width: 500px;height: 500px;background-color: blanchedalmond">
+    <extarea  id="DataToSend" cols="100" rows="10" readonly="true"/></textarea>
+  </div>
+  <br />
+</form>
+</body>
 </html>
