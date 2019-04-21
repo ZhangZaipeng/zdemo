@@ -97,6 +97,11 @@
       <optional>true</optional>
     </dependency>
 
+    <dependency>
+      <groupId>org.bitcoinj</groupId>
+      <artifactId>bitcoinj-core</artifactId>
+      <version>0.14.7</version>
+    </dependency>
   </dependencies>
 
   <build>
