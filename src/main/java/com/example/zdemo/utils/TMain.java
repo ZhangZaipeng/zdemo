@@ -37,11 +37,16 @@ public class TMain {
           .setExpectContinueEnabled(false).build();
       requestPost.setConfig(requestConfig);
 
-
       CloseableHttpClient httpClient = HttpClientBuilder.create().build();
       // send request
       CloseableHttpResponse response = httpClient.execute(requestPost);
       InputStream in = response.getEntity().getContent();*/
 
+      Integer a = new Integer(20190909);
+    Integer b = new Integer(20190909);
+    Integer c = new Integer(20190919);
+    System.out.println(a.equals(b));
+    System.out.println(a == 20190909);
+    System.out.println(a > b);
   }
 }
