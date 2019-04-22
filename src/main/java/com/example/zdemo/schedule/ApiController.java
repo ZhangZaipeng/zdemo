@@ -16,6 +16,12 @@ public class ApiController {
   @Autowired
   private ScheduleBao scheduleBao;
 
+  @GetMapping("/test.json")
+  @ResponseBody
+  public String index1(){
+    return "index";
+  }
+
   @GetMapping("/index.htm")
   public ModelAndView index(){
     boolean isRunning = ScheduleBao.isIsRunning() ;
