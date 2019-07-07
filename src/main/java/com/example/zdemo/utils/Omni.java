@@ -186,11 +186,11 @@ public class Omni {
   }
 
   public static void main(String[] args) throws Exception{
-    String fromAddress = "1Au4sz2nE6ouMoEoosPhDgeTViECLWHbJ7";
-    String toAddress = "1J3geU3Jcmyf1soWPtCRZt27ei54w6WRLc";
-    String privateKey = "L2qEU6hqsLmeW9CRgLxNtjK8kZgEq9xEAWw6HwSyUu3ujcFCZzz5";
+    String fromAddress = "1J3geU3Jcmyf1soWPtCRZt27ei54w6WRLc";
+    String toAddress = "13YoZ6fx7YCQ9oLa15oT6P7GGexDgLuip3";
+    String privateKey = "L2DUY7Pg3SBuQXb2uYFceE2KcqNPNEwKaBdGkcYJhHXxPyUX7p9A";
     List<UTXO> utxos = Omni.getUnspent(fromAddress);
-    Long amount = 20L;
+    Long amount = 1424L;
     Integer propertyid = 31;
     Long fee = Omni.getOmniFee(utxos);
     String sign = Omni.omniSign(fromAddress, toAddress, privateKey, amount, fee, propertyid, utxos);

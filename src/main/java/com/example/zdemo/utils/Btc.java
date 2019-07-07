@@ -209,7 +209,7 @@ public class Btc {
     String from = "1MueAn6g8AU8QVndXeG6G2YRuGK4WtRta8";
     String to = "1J3geU3Jcmyf1soWPtCRZt27ei54w6WRLc";
     String fromPrivate = "KyZ1YYfTsfvw2pUdEnBoNXtX45w5QK2hxJxeQnmqBJLVbMHDD7mu";
-    Long amount = 0.003;
+    Long amount = 3L;
     List<UTXO> utxos = getUnspent(from);
     Long fee = getFee(amount,utxos);
     String sig = sign(from, to, fromPrivate, amount,fee, utxos);

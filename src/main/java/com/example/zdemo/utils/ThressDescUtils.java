@@ -111,7 +111,7 @@ public class ThressDescUtils {
 
   public static void main(String[] args) {
 
-    String encode = decodeAssetAddress("8tjRc+q9AKv6tAsC2Yp3+Socq1ls4PCvIUw0rLCvzkjK7Sw30B8NUg==");
+    String encode = decodeAssetAddress("/kkYCEYOdY2aB+odVh5vyHoDqH+cOY7sQM9SXiA/J2Y+bjYat/eLykMowOgc SkWU");
     System.out.println(encode);
 
     String decode = ThressDescUtils.decodeAssetPwd(

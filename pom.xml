@@ -102,6 +102,17 @@
       <artifactId>bitcoinj-core</artifactId>
       <version>0.14.7</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.web3j</groupId>
+      <artifactId>core</artifactId>
+      <version>3.4.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.novacrypto</groupId>
+      <artifactId>BIP44</artifactId>
+      <version>0.0.3</version>
+    </dependency>
   </dependencies>
 
   <build>

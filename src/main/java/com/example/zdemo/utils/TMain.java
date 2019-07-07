@@ -1,5 +1,6 @@
 package com.example.zdemo.utils;
 
+import com.example.zdemo.asyncRequest.AsyncRequestClient;
 import com.example.zdemo.utils.R.Content;
 import com.google.gson.Gson;
 import java.awt.image.BufferedImage;
@@ -42,6 +43,15 @@ public class TMain {
       // send request
       CloseableHttpResponse response = httpClient.execute(requestPost);
       InputStream in = response.getEntity().getContent();*/
+
+    AsyncRequestClient asyncRequestClient= AsyncRequestClient.getInstance();
+    asyncRequestClient.setConcurrency(60);
+    asyncRequestClient.start();
+
+    for (int i = 0; i < 100; i++) {
+      asyncRequestClient.submitTask(1000L, "action", "parameters", "method");
+    }
+
 
   }
 }
