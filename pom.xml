@@ -98,6 +98,18 @@
     </dependency>
 
     <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>itext-pdfa</artifactId>
+      <version>5.5.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>net.logstash.logback</groupId>
+      <artifactId>logstash-logback-encoder</artifactId>
+      <version>4.11</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.bitcoinj</groupId>
       <artifactId>bitcoinj-core</artifactId>
       <version>0.14.7</version>
